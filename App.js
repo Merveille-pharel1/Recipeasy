@@ -91,24 +91,24 @@ function InscriptionScreen(){
 
 function FormScreen(){
   const options = [
-        {
-            id: '1',
-            label: 'Breakfast',
-            value: '1',
-            color: "white"
-        },
-        {
-            id: '2',
-            label: 'Lunch',
-            value: '2',
-            color: "white"
-        },
-        {
-            id: '3',
-            label: 'Diner',
-            value: '3',
-            color: "white"
-        }
+    {
+        id: '1',
+        label: 'Breakfast',
+        value: '1',
+        color: "white"
+    },
+    {
+        id: '2',
+        label: 'Lunch',
+        value: '2',
+        color: "white"
+    },
+    {
+        id: '3',
+        label: 'Diner',
+        value: '3',
+        color: "white"
+    }
   ];
 
   return (
@@ -138,9 +138,7 @@ function FormScreen(){
       </SafeAreaView>
     </SafeAreaProvider>
 
-   );
-    
-
+  );
 }
 
 const styles = StyleSheet.create({
