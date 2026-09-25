@@ -5,7 +5,7 @@ import MyButton from '../components/myButton';
 import TimeList from '../components/timeList';
 import styles from '../styles/globalStyle';
 
-export default function FormScreen(){
+export default function FormScreen({navigation}){
   const options = [
     {
         id: '1',
@@ -28,7 +28,7 @@ export default function FormScreen(){
   ];
 
   return (
-    <>
+    <View style={styles.container}>
       <RadioGroup radioButtons={ options } layout="row" containerStyle={styles.radio} labelStyle={{color: "white"}}/>
       
       <InputField label="Name"/>
@@ -45,7 +45,11 @@ export default function FormScreen(){
       </View>
 
       <InputField label="Description" style={{height: 480, maxHeight: 480, marginBottom: 25, verticalAlign:'top'}}/>
-      <MyButton width="60" label="Save"/>
-    </>
+      <TouchableHighlight
+        onPress = {() => navigation.goBack()}
+      >
+        <MyButton width="60" label="Save"/>
+      </TouchableHighlight>
+    </View>
   );
 }
