@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View,TouchableHighlight, Text } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 import InputField from '../components/inputField';
 import MyButton from '../components/myButton';
@@ -33,12 +33,12 @@ export default function FormScreen({navigation}){
       
       <InputField label="Name"/>
 
-      <View style={[styles.row_direction, styles.durationContainer]}>
-        <View style={[styles.row_direction, {gap: 10, flex: 1, alignItems: "center"}]}>
+      <View style={[styles.rowDefinition, styles.durationContainer]}>
+        <View style={[styles.rowDefinition, {gap: 10, flex: 1, alignItems: "center"}]}>
           <Text style={{color: 'white'}}>Duration</Text>
           <TimeList max="24" unity="h"/>
         </View>
-        <View style={[styles.row_direction, {gap: 10, flex: 1,alignItems: "center"}]}>
+        <View style={[styles.rowDefinition, {gap: 10, flex: 1,alignItems: "center"}]}>
           <Text style={{color: 'white'}}>:</Text>
           <TimeList max="60" unity="mins"/>
         </View>

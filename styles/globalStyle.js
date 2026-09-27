@@ -35,10 +35,37 @@ const styles = StyleSheet.create({
     
     },
 
-    row_direction: {
+    rowDefinition: {
         display: "flex",
         flexDirection: "row"
     },
+
+    listContainer: {
+        width: 320,
+        maxWidth: 400,
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 20,
+        padding: 16
+    },
+
+    listHeader: {
+        color: "white",
+        fontSize: 30,
+        fontWeight: "bold",
+        marginBottom: 10,
+    },
+
+    textList: {
+        color: "white",
+        fontSize: 18,
+        letterSpacing: 1.5,
+        textAlign: "center"   
+    },
+
+    actionButtons: {
+        gap: 40
+    }
 
 });
 

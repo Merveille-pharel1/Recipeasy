@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet } from "react-native"
 
-export default function MyButton({label}){
+export default function MyButton({label, icon, style}){
   return (
-    <View style = {styles.button}>
-      <Text style={styles.text}>{label}</Text>
+    <View style = {[styles.button, style]}>
+      {label && <Text style={styles.text}>{label}</Text>}
+      {icon}
     </View>
   )
 }
@@ -11,9 +12,9 @@ export default function MyButton({label}){
 const styles = StyleSheet.create({
     button: {
         backgroundColor: "#F2A93B",
-        paddingVertical: 15,
+        padding: 15,
         borderRadius: 5,
-        paddingHorizontal: 15
+        // paddingHorizontal: 15
     },
 
     text:{
