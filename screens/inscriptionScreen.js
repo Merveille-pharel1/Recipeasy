@@ -1,12 +1,12 @@
 import { View, TouchableHighlight } from "react-native";
 import InputField from "../components/inputField";
 import MyButton from "../components/myButton";
-import styles from '../styles/globalStyle';
+import globalStyles from '../styles/globalStyle';
 
 export default function InscriptionScreen({navigation}){
   return(
-    <View style={styles.container}>
-      <View style={styles.form}>
+    <View style={globalStyles.container}>
+      <View style={globalStyles.form}>
         <InputField label="Username"/>
         <InputField label="Password"/>
         <InputField label="Password confirmation"/>

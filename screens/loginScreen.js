@@ -1,12 +1,12 @@
-import { View, TouchableHighlight, Text } from "react-native";
+import { View, TouchableHighlight, Text, StyleSheet } from "react-native";
 import InputField from "../components/inputField";
 import MyButton from "../components/myButton";
-import styles from '../styles/globalStyle';
+import globalStyles from '../styles/globalStyle';
 
 export default function LoginScreen({navigation}){
   return (
-    <View style={styles.container}>
-      <View style={styles.form}>
+    <View style={globalStyles.container}>
+      <View style={globalStyles.form}>
         <InputField label="Username"/>
         <InputField label="Password" secureTextEntry={true}/>
 
@@ -25,3 +25,12 @@ export default function LoginScreen({navigation}){
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+
+  link:{
+    textAlign: "center",
+    color: "blue",
+  },
+
+});
