@@ -6,7 +6,7 @@ import TimeList from '../components/timeList';
 import globalStyles from '../styles/globalStyle';
 import { useEffect, useState } from 'react';
 import ToastManager, {Toast} from 'toastify-react-native';
-import EMPTY_RECIPE from '../models/Recipe';
+import {EMPTY_RECIPE} from '../models/Recipe';
 
 function checkErrors(recipe){
   const MAX_DURATION = 12 * 60 + 59;

@@ -4,17 +4,22 @@ import globalStyles from "../styles/globalStyle"
 import MyButton from "../components/myButton";
 import { useEffect, useState } from "react";
 import ToastManager, {Toast} from 'toastify-react-native';
+import { SEED_RECIPE } from "../models/Recipe";
 
 
 export default function ListScreen({navigation, route}){
     const addIcon = <FontAwesome6 name="add" size={20} color="white" />;
 
-    const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState(sortRecipes(SEED_RECIPE));
 
     const formatDuration = (hours, minutes) => `${hours}h${String(minutes).padStart(2, "0")}`;
 
     function randomize(){
         return Math.floor(Math.random() * recipes.length)
+    }
+
+    function sortRecipes(recipesArray){
+        return recipesArray.sort((r1, r2) => r1.name.localeCompare(r2.name))
     }
 
     function RecipeItem({recipe}){
@@ -52,21 +57,13 @@ export default function ListScreen({navigation, route}){
                 addingRecipe.id = Math.max(...recipes.map((recipe) => recipe.id)) + 1
             }
             
-            const newRecipesList = [...recipes, addingRecipe].sort((r1, r2) => r1.name.localeCompare(r2.name))
+            const newRecipesList = sortRecipes([...recipes, addingRecipe])
 
             Toast.info("Recette ajouté avec success");
 
             setRecipes(newRecipesList);
         }
     }, [route.params?.recipe]);
-
-    const recette = {
-        category: 1, 
-        name: "Tt Garnie", 
-        durationHours: 1, 
-        durationMinutes: 25, 
-        description: "dinos et damso"
-    }
 
     return(
         <View style={globalStyles.container}>
