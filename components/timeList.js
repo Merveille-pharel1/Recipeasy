@@ -15,9 +15,9 @@ export default function TimeList({max, unity, ...otherProps}){
 
 const styles = StyleSheet.create({
     pickerContainer: {
-        flex: 1,
-        backgroundColor: "inherit",
-        borderColor: "#387E7F",
-        color: "white",
+      flex: 1,
+      backgroundColor: "inherit",
+      borderColor: "#387E7F",
+      color: "white",
     },
 })

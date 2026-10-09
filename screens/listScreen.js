@@ -70,7 +70,7 @@ export default function ListScreen({navigation, route}){
             
             <View style={styles.listContainer}>
 
-                {recipes.length == [] ?
+                {recipes.length == 0 ?
                     <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}> 
                         <Text style={[styles.text, {fontSize: 20,}]}>No recipes yet...</Text>
                     </View>

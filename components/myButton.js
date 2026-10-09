@@ -10,14 +10,14 @@ export default function MyButton({label, icon, style}){
 }
 
 const styles = StyleSheet.create({
-    button: {
-        backgroundColor: "#F2A93B",
-        padding: 15,
-        borderRadius: 5,
-    },
+  button: {
+    backgroundColor: "#F2A93B",
+    padding: 15,
+    borderRadius: 5,
+  },
 
-    text:{
-        color: "white",
-        textAlign: "center"
-    },
+  text:{
+    color: "white",
+    textAlign: "center"
+  },
 })

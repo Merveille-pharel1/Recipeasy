@@ -12,14 +12,18 @@ function checkErrors(recipe){
   const MAX_DURATION = 12 * 60 + 59;
   const durationRecipe = recipe.durationHours * 60 + recipe.durationMinutes;
 
+  let errors = ""
+
   if(recipe.category === null)
-    return "Catégorie requise!";
-  else if(recipe.name.trim() == "")
-    return "Nom requis (non vide)!";
-  else if(durationRecipe <= 0 || durationRecipe > MAX_DURATION)
-    return "La durée doit être valide (Durée > 0)";
-  else 
-    return undefined  
+    errors += "Catégorie requise!\n";
+
+  if(recipe.name.trim() == "")
+    errors += "Nom requis (non vide)!\n";
+
+  if(durationRecipe <= 0 || durationRecipe > MAX_DURATION)
+    errors += "La durée doit être valide (Durée > 0)";
+
+  return errors
 }
 
 export default function FormScreen({navigation, route}){
@@ -65,9 +69,9 @@ export default function FormScreen({navigation, route}){
         
         { mode == "ADD" && <TouchableHighlight
           onPress = {() => {
-            const message = checkErrors(recipe);
-            if(message != undefined)
-              Toast.info(message);
+            const errors = checkErrors(recipe);
+            if(errors != "")
+              Toast.info(errors);
             else
               navigation.popTo("Recipes", {recipe});
           }}
