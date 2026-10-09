@@ -27,14 +27,14 @@ export default function FormScreen({navigation, route}){
   const options = optionLabels.map((label, index) => ({id: index, label: label, value: index, color: "white"}));
 
   const [recipe, setRecipe] = useState(EMPTY_RECIPE);
-  const [mode, setMode] = useState("ADD");
+  const selectedRecipe = route.params?.selectedRecipe
+  let mode = !selectedRecipe ? "ADD" : "DELETE"
 
   useEffect(() => {
-    if(route.params?.selectedRecipe != undefined){
-      setRecipe(route.params.selectedRecipe);
-      setMode("DELETE")
+    if(selectedRecipe){
+      setRecipe(selectedRecipe);
     }
-  })
+  }, [route.params])
 
   return (
     <View style={globalStyles.container}>

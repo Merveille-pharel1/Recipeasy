@@ -12,7 +12,6 @@ export default function ListScreen({navigation, route}){
     const addIcon = <FontAwesome6 name="add" size={20} color="white" />;
 
     const [recipes, setRecipes] = useState([]);
-    const [selectedRecipe, setSelected] = useState(EMPTY_RECIPE);
 
     function randomize(){
         return Math.floor(Math.random() * recipes.length)
@@ -25,11 +24,6 @@ export default function ListScreen({navigation, route}){
         }
     }, [route.params?.recipe]);
 
-    useEffect(() => {
-        if(selectedRecipe != EMPTY_RECIPE){
-            navigation.push("Recipe", {selectedRecipe});
-        }
-    }, [selectedRecipe])
 
     return(
         <View style={globalStyles.container}>
@@ -47,8 +41,8 @@ export default function ListScreen({navigation, route}){
                                 Toast.info("La liste est vide!!");
                                 return;
                             }
-                            const random = randomize();
-                            setSelected(recipes[random]);
+                            const recipe = recipes[randomize()]
+                            navigation.push("Recipe", {selectedRecipe: recipe});
                         }}
                     >
                         <MyButton icon={eyesIcon} style={{paddingVertical: 8}}/>
