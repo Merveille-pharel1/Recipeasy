@@ -38,52 +38,53 @@ export default function FormScreen({navigation, route}){
 
   return (
     <View style={globalStyles.container}>
-      <RadioGroup 
-        radioButtons={ options }
-        selectedId={recipe.category} 
-        layout="row" 
-        containerStyle={styles.radio} 
-        labelStyle={{color: "white"}}
-        onPress={(category) => setRecipe({...recipe, category})}
-      />
-      
-      <InputField label="Name" value={recipe.name} onChangeText={(name) => setRecipe({...recipe, name}) }/>
-       
-      <View style={[globalStyles.rowDefinition, styles.durationContainer]}>
-        <View style={[globalStyles.rowDefinition, {gap: 10, flex: 1, alignItems: "center"}]}>
-          <Text style={{color: 'white'}}>Duration</Text>
-          <TimeList max="12" unity="h" selectedValue={recipe.durationHours} onValueChange={(durationHours, hoursIndex) => setRecipe({...recipe, durationHours})}/>
+      <View style={{flex: 1, alignItems: "center"}}>
+        <RadioGroup 
+          radioButtons={ options }
+          selectedId={recipe.category} 
+          layout="row" 
+          containerStyle={styles.radio} 
+          labelStyle={{color: "white"}}
+          onPress={(category) => setRecipe({...recipe, category})}
+        />
+        
+        <InputField label="Name" value={recipe.name} onChangeText={(name) => setRecipe({...recipe, name}) }/>
+        
+        <View style={[globalStyles.rowDefinition, styles.durationContainer]}>
+          <View style={[globalStyles.rowDefinition, {gap: 10, flex: 1, alignItems: "center"}]}>
+            <Text style={{color: 'white'}}>Duration</Text>
+            <TimeList max="12" unity="h" selectedValue={recipe.durationHours} onValueChange={(durationHours, hoursIndex) => setRecipe({...recipe, durationHours})}/>
+          </View>
+          <View style={[globalStyles.rowDefinition, {gap: 10, flex: 1,alignItems: "center"}]}>
+            <Text style={{color: 'white'}}>:</Text>
+            <TimeList max="60" unity="mins" selectedValue={recipe.durationMinutes} onValueChange={(durationMinutes, minutesIndex) => setRecipe({...recipe, durationMinutes})}/>
+          </View>
         </View>
-        <View style={[globalStyles.rowDefinition, {gap: 10, flex: 1,alignItems: "center"}]}>
-          <Text style={{color: 'white'}}>:</Text>
-          <TimeList max="60" unity="mins" selectedValue={recipe.durationMinutes} onValueChange={(durationMinutes, minutesIndex) => setRecipe({...recipe, durationMinutes})}/>
-        </View>
-      </View>
 
-      <InputField label="Description" value={recipe.description} onChangeText={(description) => setRecipe({...recipe, description})} style={{height: 480, maxHeight: 480, marginBottom: 25, verticalAlign:'top'}}/>
-      
-      { mode == "ADD" && <TouchableHighlight
-        onPress = {() => {
-          const message = checkErrors(recipe);
-          if(message != undefined)
-            Toast.info(message);
-          else
-            navigation.popTo("Recipes", {recipe});
-        }}
-      >
-        <MyButton width="60" label="Save"/>
-      </TouchableHighlight>}
+        <InputField label="Description" value={recipe.description} onChangeText={(description) => setRecipe({...recipe, description})} style={{height: 480, maxHeight: 480, marginBottom: 25, verticalAlign:'top'}}/>
+        
+        { mode == "ADD" && <TouchableHighlight
+          onPress = {() => {
+            const message = checkErrors(recipe);
+            if(message != undefined)
+              Toast.info(message);
+            else
+              navigation.popTo("Recipes", {recipe});
+          }}
+        >
+          <MyButton width="60" label="Save"/>
+        </TouchableHighlight>}
 
-      { mode == "DELETE" && <TouchableHighlight
-        onPress = {() => {
-          navigation.popTo("Recipes");
-        }}
-      >
-        <MyButton width="60" label="Delete"/>
-      </TouchableHighlight>}
+        { mode == "DELETE" && <TouchableHighlight
+          onPress = {() => {
+            navigation.popTo("Recipes");
+          }}
+        >
+          <MyButton width="60" label="Delete"/>
+        </TouchableHighlight>}
 
-      <ToastManager/>
-
+        <ToastManager/>
+      </View> 
     </View>
   );
 }

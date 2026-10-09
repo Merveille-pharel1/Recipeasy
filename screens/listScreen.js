@@ -1,61 +1,100 @@
-import { View, Text, TouchableHighlight, StyleSheet } from "react-native"
-import {AntDesign, FontAwesome6 } from '@expo/vector-icons'
+import { View, Text, TouchableHighlight, StyleSheet, FlatList } from "react-native"
+import {AntDesign, FontAwesome6, MaterialIcons } from '@expo/vector-icons'
 import globalStyles from "../styles/globalStyle" 
 import MyButton from "../components/myButton";
 import { useEffect, useState } from "react";
-import EMPTY_RECIPE from "../models/Recipe";
 import ToastManager, {Toast} from 'toastify-react-native';
 
 
 export default function ListScreen({navigation, route}){
-    const eyesIcon = <AntDesign name="eye" size={20} color="white" />;
     const addIcon = <FontAwesome6 name="add" size={20} color="white" />;
 
     const [recipes, setRecipes] = useState([]);
+
+    const formatDuration = (hours, minutes) => `${hours}h${String(minutes).padStart(2, "0")}`;
 
     function randomize(){
         return Math.floor(Math.random() * recipes.length)
     }
 
+    function RecipeItem({recipe}){
+
+        const categories = [
+            {name: "free-breakfast", color: "#d8a14eff"},
+            {name: "lunch-dining", color: "limegreen"},
+            {name: "dinner-dining", color: "blue"}
+        ]   
+        
+        return(
+            <TouchableHighlight 
+                underlayColor="#CE9032"
+                onPress={() => navigation.push("Recipe", {selectedRecipe: recipe})} 
+            >
+                <View style={[globalStyles.rowDefinition, {marginVertical: 15, gap: 4}]}>
+                    <View style={{width: 50}}>
+                        <MaterialIcons name={categories[recipe.category].name} size={24} color={categories[recipe.category].color} />
+                        <Text style={styles.text}>{formatDuration(recipe.durationHours, recipe.durationMinutes)}</Text>
+                    </View>
+                    <View style={{flex: 1, justifyContent: "flex-start"}}>
+                        <Text style={styles.textName}>{recipe.name}</Text>
+                        <Text style={styles.text}>{recipe.description}</Text>
+                    </View>
+                </View>
+            </TouchableHighlight>
+        )
+    }
+
     useEffect(() =>{
-        if(route.params?.recipe != undefined){
-            setRecipes([...recipes, route.params.recipe]);
+        let addingRecipe = route.params?.recipe
+        if(addingRecipe != undefined){
+
+            if(recipes.length != 0){
+                addingRecipe.id = Math.max(...recipes.map((recipe) => recipe.id)) + 1
+            }
+            
+            const newRecipesList = [...recipes, addingRecipe].sort((r1, r2) => r1.name.localeCompare(r2.name))
+
             Toast.info("Recette ajouté avec success");
+
+            setRecipes(newRecipesList);
         }
     }, [route.params?.recipe]);
 
+    const recette = {
+        category: 1, 
+        name: "Tt Garnie", 
+        durationHours: 1, 
+        durationMinutes: 25, 
+        description: "dinos et damso"
+    }
 
     return(
         <View style={globalStyles.container}>
             
             <View style={styles.listContainer}>
-                <Text style={styles.listHeader}>Liste de Recettes</Text>
-                <Text style={styles.textList}>{JSON.stringify([...recipes].sort((r1, r2) => r1.name.localeCompare(r2.name)))}</Text>
 
-                <View style = {[globalStyles.rowDefinition, styles.actionButtons]}>
-                    <TouchableHighlight
-                        accessibilityLabel="Détail de la recette"
-                        underlayColor="#CE9032"
-                        onPress={() => {
-                            if(recipes.length === 0){
-                                Toast.info("La liste est vide!!");
-                                return;
-                            }
-                            const recipe = recipes[randomize()]
-                            navigation.push("Recipe", {selectedRecipe: recipe});
-                        }}
-                    >
-                        <MyButton icon={eyesIcon} style={{paddingVertical: 8}}/>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        accessibilityLabel="Créer une nouvelle recette"
-                        underlayColor="#CE9032"
-                        onPress={() => navigation.push("Recipe")}
-                    >
-                        <MyButton icon={addIcon} style={{paddingVertical: 8}}/>
-                    </TouchableHighlight>
-                </View>
+                {recipes.length == [] ?
+                    <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}> 
+                        <Text style={[styles.text, {fontSize: 20,}]}>No recipes yet...</Text>
+                    </View>
+                    :
+                    <FlatList
+                        data={ recipes }
+                        renderItem={ (listItem) => <RecipeItem recipe={listItem.item} /> }
+                        ItemSeparatorComponent={ () => <View style={{ height: 1, backgroundColor: 'lightgray' }}/> }
+                    />
+                }
+
             </View>
+
+            <TouchableHighlight
+                accessibilityLabel="Créer une nouvelle recette"
+                underlayColor="#CE9032"
+                onPress={() => navigation.push("Recipe")}
+                style={{ position: "absolute", bottom: 50, right: 30}}
+            >
+                <MyButton icon={addIcon} style={{padding: 20, borderRadius: 30,}}/>
+            </TouchableHighlight>
             
             <ToastManager />
         </View>
@@ -64,11 +103,9 @@ export default function ListScreen({navigation, route}){
 
 const styles = StyleSheet.create({
     listContainer: {
-        maxWidth: 350,
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 20,
-        padding: 16,
+        flex: 1,
+        paddingHorizontal: 20,
+        paddingBottom: 50
     },
 
     listHeader: {
@@ -76,15 +113,26 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold",
         marginBottom: 10,
+        borderWidth: 1
     },
 
     textList: {
         color: "white",
         fontSize: 18,
-        textAlign: "center"   
+        textAlign: "center",
+        borderWidth: 1
     },
 
-    actionButtons: {
-        gap: 40
+    textName: {
+        color: "white",
+        fontSize: 18,
+        fontWeight: "bold"
+
+    },
+
+    text: {
+        color: "lightgray",
+        fontSize: 16
     }
+
 });
