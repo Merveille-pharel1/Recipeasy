@@ -41,8 +41,8 @@ export default function ListScreen({navigation, route}){
                         <Text style={styles.text}>{formatDuration(recipe.durationHours, recipe.durationMinutes)}</Text>
                     </View>
                     <View style={{flex: 1, justifyContent: "flex-start"}}>
-                        <Text style={styles.textName}>{recipe.name}</Text>
-                        <Text style={styles.text}>{recipe.description}</Text>
+                        <Text numberOfLines={1} style={styles.textName}>{recipe.name}</Text>
+                        <Text numberOfLines={1} style={styles.text}>{recipe.description}</Text>
                     </View>
                 </View>
             </TouchableHighlight>
