@@ -6,26 +6,8 @@ import TimeList from '../components/timeList';
 import globalStyles from '../styles/globalStyle';
 import { useEffect, useState } from 'react';
 import ToastManager, {Toast} from 'toastify-react-native';
-import {EMPTY_RECIPE} from '../models/Recipe';
+import {EMPTY_RECIPE, CheckErrors} from '../models/Recipe';
 import { v4 as uuidv4 } from 'uuid';
-
-function checkErrors(recipe){
-  const MAX_DURATION = 12 * 60 + 59;
-  const durationRecipe = recipe.durationHours * 60 + recipe.durationMinutes;
-
-  let errors = ""
-
-  if(recipe.category === null)
-    errors += "Catégorie requise!\n";
-
-  if(recipe.name.trim() == "")
-    errors += "Nom requis (non vide)!\n";
-
-  if(durationRecipe <= 0 || durationRecipe > MAX_DURATION)
-    errors += "La durée doit être valide (Durée > 0)";
-
-  return errors
-}
 
 export default function FormScreen({navigation, route}){
   const optionLabels = ['Breakfast', 'Lunch', 'Diner']; 
@@ -70,7 +52,7 @@ export default function FormScreen({navigation, route}){
         
         { mode == "ADD" && <TouchableHighlight
           onPress = {() => {
-            const errors = checkErrors(recipe);
+            const errors = CheckErrors(recipe);
             if(errors != "")
               Toast.info(errors);
             else{
