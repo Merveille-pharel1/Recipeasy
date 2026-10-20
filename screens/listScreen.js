@@ -61,6 +61,7 @@ export default function ListScreen({navigation, route}){
 
             let newRecipesList
             if(foundRecipe){
+                // console.log(addingRecipe)
                 newRecipesList = sortRecipes(recipes.map(recipe => recipe.id == addingRecipe.id ? addingRecipe : recipe))
             }
             else
