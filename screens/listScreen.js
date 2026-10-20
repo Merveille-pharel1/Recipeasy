@@ -45,6 +45,14 @@ export default function ListScreen({navigation, route}){
         )
     }
 
+    function ListEmpty(){
+        return(
+            <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}> 
+                <Text style={[styles.text, {fontSize: 20,}]}>No recipes yet...</Text>
+            </View>
+        )
+    }
+
     useEffect(() =>{
         let addingRecipe = route.params?.recipe
         if(addingRecipe != undefined){
@@ -62,17 +70,13 @@ export default function ListScreen({navigation, route}){
             
             <View style={styles.listContainer}>
 
-                {recipes.length == 0 ?
-                    <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}> 
-                        <Text style={[styles.text, {fontSize: 20,}]}>No recipes yet...</Text>
-                    </View>
-                    :
-                    <FlatList
-                        data={ recipes }
-                        renderItem={ (listItem) => <RecipeItem recipe={listItem.item} /> }
-                        ItemSeparatorComponent={ () => <View style={{ height: 1, backgroundColor: 'lightgray' }}/> }
-                    />
-                }
+                <FlatList
+                    data={ recipes }
+                    renderItem={ (listItem) => <RecipeItem recipe={listItem.item} /> }
+                    ItemSeparatorComponent={ () => <View style={{ height: 1, backgroundColor: 'lightgray' }}/> }
+                    ListEmptyComponent={<ListEmpty/>}
+                    contentContainerStyle={recipes.length === 0 && { flexGrow: 1 }}
+                />
 
             </View>
 
