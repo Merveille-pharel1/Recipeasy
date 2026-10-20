@@ -25,7 +25,7 @@ export default function FormScreen({navigation, route}){
 
   return (
     <View style={globalStyles.container}>
-      <View style={{flex: 1, alignItems: "center"}}>
+      <View style={{flex: 1, alignItems: "center", paddingTop: 5}}>
         <RadioGroup 
           radioButtons={ options }
           selectedId={recipe.category} 
@@ -50,27 +50,35 @@ export default function FormScreen({navigation, route}){
 
         <InputField label="Description" value={recipe.description} onChangeText={(description) => setRecipe({...recipe, description})} style={{height: 480, maxHeight: 480, marginBottom: 25, verticalAlign:'top'}}/>
         
-        { mode == "ADD" && <TouchableHighlight
-          onPress = {() => {
-            const errors = CheckErrors(recipe);
-            if(errors != "")
-              Toast.info(errors);
-            else{
-              const newRecipe = {...recipe, id: uuidv4()};
-              navigation.popTo("Recipes", {recipe: newRecipe});
-            }
-          }}
-        >
-          <MyButton width="60" label="Save"/>
-        </TouchableHighlight>}
+        <View style={[globalStyles.rowDefinition, {gap: 20}]}>
+          { mode == "DELETE" && <TouchableHighlight
+            onPress = {() => {
+              navigation.popTo("Recipes");
+            }}
+          >
+            <MyButton width="60" label="Delete" style={{backgroundColor: "red"}}/>
+          </TouchableHighlight>}
 
-        { mode == "DELETE" && <TouchableHighlight
-          onPress = {() => {
-            navigation.popTo("Recipes");
-          }}
-        >
-          <MyButton width="60" label="Delete"/>
-        </TouchableHighlight>}
+          <TouchableHighlight
+            onPress = {() => {
+              const errors = CheckErrors(recipe);
+              if(errors != "")
+                Toast.info(errors);
+              else{
+                let newRecipe = recipe
+
+                if(mode == "ADD"){
+                  newRecipe = {...recipe, id: uuidv4()};
+                }
+
+                navigation.popTo("Recipes", {recipe: newRecipe});
+              }
+            }}
+          >
+            <MyButton width="60" label="Save"/>
+          </TouchableHighlight>
+
+        </View>
 
         <ToastManager/>
       </View> 

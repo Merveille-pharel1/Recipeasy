@@ -54,10 +54,17 @@ export default function ListScreen({navigation, route}){
     }
 
     useEffect(() =>{
-        let addingRecipe = route.params?.recipe
+        const addingRecipe = route.params?.recipe
         if(addingRecipe != undefined){
 
-            const newRecipesList = sortRecipes([...recipes, addingRecipe])
+            const foundRecipe = recipes.find((recipe) => recipe.id == addingRecipe.id)
+
+            let newRecipesList
+            if(foundRecipe){
+                newRecipesList = sortRecipes(recipes.map(recipe => recipe.id == addingRecipe.id ? addingRecipe : recipe))
+            }
+            else
+                newRecipesList = sortRecipes([...recipes, addingRecipe])
 
             Toast.info("Recette ajouté avec success");
 
