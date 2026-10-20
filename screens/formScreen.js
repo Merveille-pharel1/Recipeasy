@@ -7,6 +7,7 @@ import globalStyles from '../styles/globalStyle';
 import { useEffect, useState } from 'react';
 import ToastManager, {Toast} from 'toastify-react-native';
 import {EMPTY_RECIPE} from '../models/Recipe';
+import { v4 as uuidv4 } from 'uuid';
 
 function checkErrors(recipe){
   const MAX_DURATION = 12 * 60 + 59;
@@ -35,8 +36,8 @@ export default function FormScreen({navigation, route}){
   let mode = !selectedRecipe ? "ADD" : "DELETE"
 
   useEffect(() => {
-    if(selectedRecipe){
-      setRecipe(selectedRecipe);
+    if(route.params?.selectedRecipe){
+      setRecipe(route.params.selectedRecipe);
     }
   }, [route.params])
 
@@ -72,8 +73,10 @@ export default function FormScreen({navigation, route}){
             const errors = checkErrors(recipe);
             if(errors != "")
               Toast.info(errors);
-            else
-              navigation.popTo("Recipes", {recipe});
+            else{
+              const newRecipe = {...recipe, id: uuidv4()};
+              navigation.popTo("Recipes", {recipe: newRecipe});
+            }
           }}
         >
           <MyButton width="60" label="Save"/>

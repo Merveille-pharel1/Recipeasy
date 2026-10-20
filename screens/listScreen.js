@@ -14,10 +14,6 @@ export default function ListScreen({navigation, route}){
 
     const formatDuration = (hours, minutes) => `${hours}h${String(minutes).padStart(2, "0")}`;
 
-    function randomize(){
-        return Math.floor(Math.random() * recipes.length)
-    }
-
     function sortRecipes(recipesArray){
         return recipesArray.sort((r1, r2) => r1.name.localeCompare(r2.name))
     }
@@ -53,10 +49,6 @@ export default function ListScreen({navigation, route}){
         let addingRecipe = route.params?.recipe
         if(addingRecipe != undefined){
 
-            if(recipes.length != 0){
-                addingRecipe.id = Math.max(...recipes.map((recipe) => recipe.id)) + 1
-            }
-            
             const newRecipesList = sortRecipes([...recipes, addingRecipe])
 
             Toast.info("Recette ajouté avec success");

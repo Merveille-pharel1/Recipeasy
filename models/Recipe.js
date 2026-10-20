@@ -1,5 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const EMPTY_RECIPE = {
-    id: 1,
+    id: "",
     category: null, 
     name: "", 
     durationHours: 0, 
@@ -9,7 +11,7 @@ export const EMPTY_RECIPE = {
 
 export const SEED_RECIPE = [
     {
-        id: 1,
+        id: uuidv4(),
         category: 1,
         name: "Soupe",
         durationHours: 1,
@@ -18,7 +20,7 @@ export const SEED_RECIPE = [
     },
 
     {
-        id: 2,
+        id: uuidv4(),
         category: 0,
         name: "Crêpes au sirop d'érable",
         durationHours: 0,
@@ -27,7 +29,7 @@ export const SEED_RECIPE = [
     },
 
     {
-        id: 3,
+        id: uuidv4(),
         category: 0,
         name: "Omelette aux légumes",
         durationHours: 0,
@@ -36,7 +38,7 @@ export const SEED_RECIPE = [
     },
 
     {
-        id: 4,
+        id: uuidv4(),
         category: 1,
         name: "Salade César",
         durationHours: 0,
@@ -45,7 +47,7 @@ export const SEED_RECIPE = [
     },
     
     {
-        id: 5,
+        id: uuidv4(),
         category: 2,
         name: "Pâté chinois",
         durationHours: 1,
@@ -54,7 +56,7 @@ export const SEED_RECIPE = [
     },
 
     {
-        id: 6,
+        id: uuidv4(),
         category: 2,
         name: "Saumon au four",
         durationHours: 0,
