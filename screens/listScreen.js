@@ -3,7 +3,7 @@ import {FontAwesome6, MaterialIcons } from '@expo/vector-icons'
 import globalStyles from "../styles/globalStyle" 
 import MyButton from "../components/myButton";
 import { useEffect, useState } from "react";
-import ToastManager, {Toast} from 'toastify-react-native';
+import {Toast} from 'toastify-react-native';
 import { SEED_RECIPE } from "../models/Recipe";
 
 
@@ -97,7 +97,6 @@ export default function ListScreen({navigation, route}){
                 <MyButton icon={addIcon} style={{padding: 20, borderRadius: 30,}}/>
             </TouchableHighlight>
             
-            <ToastManager />
         </View>
     )
 }

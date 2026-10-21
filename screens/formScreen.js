@@ -5,7 +5,7 @@ import MyButton from '../components/myButton';
 import TimeList from '../components/timeList';
 import globalStyles from '../styles/globalStyle';
 import { useEffect, useState } from 'react';
-import ToastManager, {Toast} from 'toastify-react-native';
+import {Toast} from 'toastify-react-native';
 import Recipe from '../models/Recipe';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -63,7 +63,6 @@ export default function FormScreen({navigation, route}){
             onPress = {() => {
               const errors = recipe.checkErrors();
               if(errors != "")
-                // Toast.info(errors);
                 Toast.error(errors)
               else{
                 let newRecipe = recipe
@@ -80,7 +79,6 @@ export default function FormScreen({navigation, route}){
 
         </View>
 
-        <ToastManager/>
       </View> 
     </View>
   );

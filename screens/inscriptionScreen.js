@@ -3,13 +3,14 @@ import { useState } from "react";
 import InputField from "../components/inputField";
 import MyButton from "../components/myButton";
 import globalStyles from '../styles/globalStyle';
-import ToastManager, {Toast} from 'toastify-react-native';
+import {Toast} from 'toastify-react-native';
 import UserCredentials from "../models/UserCredentials";
+import auth from "../services/AuthService";
 
 
 export default function InscriptionScreen({navigation}){
 
-  const [userCredentials, setUserCredentials] = useState(new UserCredentials({username: "", password: ""}))
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
@@ -17,7 +18,7 @@ export default function InscriptionScreen({navigation}){
 
     let errors = ""
 
-    if(userCredentials.username == ""){
+    if(username == ""){
         errors += "Username requis!\n"
     }
 
@@ -31,35 +32,45 @@ export default function InscriptionScreen({navigation}){
     return errors
   }
 
-  function handleCreate(){
+  async function handleSignUp(){
 
     const errors = checkErrors() 
     
     if(errors != ""){
       Toast.error(errors)
+      return
     }
     else{
-      setUserCredentials(new UserCredentials({...userCredentials, password}))
-      navigation.push("Recipes")
+      const credentials = new UserCredentials({username, password})
+    
+      const success = await auth.singUp(credentials)
+      console.log(success)
+      
+      if(success){
+        setUsername("")
+        setPassword("")
+        setConfirmPassword("")
+
+        navigation.replace("Recipes")
+      }  
     }
   }
 
   return(
     <View style={globalStyles.container}>
       <View style={globalStyles.form}>
-        <InputField label="Username" value={userCredentials.username} onChangeText={(username) => setUserCredentials(new UserCredentials({...userCredentials, username}))}/>
+        <InputField label="Username" value={username} onChangeText={(username) => setUsername(username)}/>
         <InputField label="Password" value={password} onChangeText={(password) => setPassword(password)}/>
         <InputField label="Password confirmation" value={confirmPassword} onChangeText={(value) => setConfirmPassword(value)}/>
 
 
         <TouchableHighlight
-          onPress={handleCreate}
+          onPress={handleSignUp}
         >
           <MyButton label="Create my account"/>
         </TouchableHighlight>
       </View>
 
-      <ToastManager/>
     </View>
   );
 }

@@ -8,15 +8,13 @@ import InscriptionScreen from './screens/inscriptionScreen';
 import FormScreen from './screens/formScreen';
 import ListScreen from './screens/listScreen';
 import {SignOutButton, BackButton} from './components/headerButton';
-import styles from './styles/globalStyle';
+import ToastManager from 'toastify-react-native';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return(
     <>
-      <StatusBar style="light" />
-
       <NavigationContainer>
         <Stack.Navigator 
           initialRouteName='Login'
@@ -64,6 +62,8 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+
+      <ToastManager />
     </>
   )
 }

@@ -1,6 +1,7 @@
 import { TouchableHighlight, View, Text, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import auth from '../services/AuthService';
 
 function HeaderButton({ label, icon, onPress }) {
     return (
@@ -26,7 +27,7 @@ export function SignOutButton() {
 export function BackButton() {
     const navigation = useNavigation();
     const icon = <Ionicons name="arrow-back" size={24} color="white" />
-    return <HeaderButton icon={icon} onPress={() => navigation.goBack()} />;
+    return <HeaderButton icon={icon} onPress={() => {auth.logOut(); navigation.goBack()}} />;
 }
 
 const styles = StyleSheet.create({

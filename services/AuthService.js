@@ -1,6 +1,6 @@
 import Request from "../models/Request"
 import User from "../models/User"
-import {Base64} from "js-base64"
+import {encode} from "base-64"
 
 export class AuthService{
     #currentUser = null
@@ -10,11 +10,11 @@ export class AuthService{
     }
 
     #createRequest(query, credentials){
-        const baseUrl = import.meta.env.VITE_BASE_URL
-        const auth = Base64.encode(import.meta.env.VITE_MARTHA_USERNAME + ":" + import.meta.env.VITE_MARTHA_PASSWORD)
+        const baseUrl = process.env.EXPO_PUBLIC_BASE_URL
+        const auth = encode(process.env.EXPO_PUBLIC_MARTHA_USERNAME + ":" + process.env.EXPO_PUBLIC_MARTHA_PASSWORD)
 
-        const url = baseUrl + "query"
-        options = {
+        const url = baseUrl + query
+        const options = {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {
@@ -26,8 +26,8 @@ export class AuthService{
     }
 
     async singUp(credentials){
-        
-        const request = createRequest("insert-user/execute", credentials)
+
+        const request = this.#createRequest("/insert-user/execute", credentials)
 
         const response = await fetch(request.url, request.options).then((r) => r.json())
             
@@ -40,11 +40,11 @@ export class AuthService{
     }
 
     async login(credentials){
-        const request = createRequest("select-user-auth/execute", credentials)
+        const request = this.#createRequest("/select-user-auth/execute", credentials)
 
-        const response = await fetch(request.url, request.options).then((r) => r.json())
-
-        if (response.success && response.data.lenght == 1)  {
+        const response = await fetch(request.url, request.options).then((r) => r.json())    
+        
+        if (response.success && response.data.length == 1)  {
             const user = response.data[0]
 
             this.#currentUser = new User({ id: user.id, username: user.username })
@@ -62,5 +62,5 @@ export class AuthService{
     }
 }
 
-const service = new AuthService();
-export default service;
+const auth = new AuthService();
+export default auth;

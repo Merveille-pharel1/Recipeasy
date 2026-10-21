@@ -6,7 +6,6 @@ export default class UserCredentials{
     }
 
     checkErrors(){
-        console.log("name: ", this.username, " pass: ", this.password)
         let errors = ""
 
         if(this.username == ""){

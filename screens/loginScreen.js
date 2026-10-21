@@ -5,27 +5,28 @@ import globalStyles from '../styles/globalStyle';
 import { useState } from "react";
 import UserCredentials from "../models/UserCredentials";
 import ToastManager, {Toast} from 'toastify-react-native';
+import auth from "../services/AuthService";
+
 
 export default function LoginScreen({navigation}){
 
   const [userCredentials, setUserCredentials] = useState(new UserCredentials({username: "", password: ""}))
 
-  // function checkErrors(){
-  //   const errors = userCredentials.checkErrors()
-
-  //   return errors
-  // }
-
-  function handleLogin(){
+  async function handleLogin(){
 
     const errors = userCredentials.checkErrors()
-
     
     if(errors != ""){
       Toast.error(errors)
     }
     else{
-      navigation.push("Recipes")
+      const success = await auth.login(userCredentials)
+      if(success){
+        setUserCredentials(new UserCredentials({username: '', password: ''}))
+        navigation.push("Recipes")
+      }else{
+        Toast.error("Username ou Password invalide")
+      }
     }
   }
 
@@ -42,13 +43,16 @@ export default function LoginScreen({navigation}){
         </TouchableHighlight>
 
         <TouchableHighlight
-          onPress={() => navigation.push("Register")}
+          onPress={() => {
+            setUserCredentials(new UserCredentials({username: '', password: ''}));
+            navigation.push("Register")
+          }}
         >
           <Text style={styles.link}>Sign up!</Text>
         </TouchableHighlight>
       </View>
 
-      <ToastManager/>
+      {/* <ToastManager/> */}
     </View>
   );
 }
