@@ -1,5 +1,5 @@
 import { View, Text, TouchableHighlight, StyleSheet, FlatList } from "react-native"
-import {AntDesign, FontAwesome6, MaterialIcons } from '@expo/vector-icons'
+import {FontAwesome6, MaterialIcons } from '@expo/vector-icons'
 import globalStyles from "../styles/globalStyle" 
 import MyButton from "../components/myButton";
 import { useEffect, useState } from "react";
