@@ -1,6 +1,5 @@
 import Request from "../models/Request"
 import User from "../models/User"
-import {encode} from "base-64"
 
 export class AuthService{
     #currentUser = null
@@ -9,25 +8,9 @@ export class AuthService{
         return this.#currentUser
     }
 
-    #createRequest(query, credentials){
-        const baseUrl = process.env.EXPO_PUBLIC_BASE_URL
-        const auth = encode(process.env.EXPO_PUBLIC_MARTHA_USERNAME + ":" + process.env.EXPO_PUBLIC_MARTHA_PASSWORD)
-
-        const url = baseUrl + query
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(credentials),
-            headers: {
-                'auth': auth
-            }
-        }
-
-        return new Request({url, options})
-    }
-
     async singUp(credentials){
 
-        const request = this.#createRequest("/insert-user/execute", credentials)
+        const request = Request.createPostRequest("/insert-user/execute", credentials)
 
         const response = await fetch(request.url, request.options).then((r) => r.json())
             
@@ -40,7 +23,7 @@ export class AuthService{
     }
 
     async login(credentials){
-        const request = this.#createRequest("/select-user-auth/execute", credentials)
+        const request = Request.createPostRequest("/select-user-auth/execute", credentials)
 
         const response = await fetch(request.url, request.options).then((r) => r.json())    
         

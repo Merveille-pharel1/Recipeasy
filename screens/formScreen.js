@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function FormScreen({navigation, route}){
   const optionLabels = ['Breakfast', 'Lunch', 'Diner']; 
-  const options = optionLabels.map((label, index) => ({id: index, label: label, value: index, color: "white"}));
+  const options = optionLabels.map((label, index) => ({id: index + 1, label: label, value: index, color: "white"}));
 
   const [recipe, setRecipe] = useState(new Recipe({}));
   const selectedRecipe = route.params?.selectedRecipe

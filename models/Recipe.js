@@ -24,6 +24,17 @@ export default class Recipe{
         }
     }
 
+    static Map({ id, category, name, duration_hours, duration_minutes, description }){
+        return new Recipe({
+            id,
+            category,
+            name,
+            durationHours: duration_hours,
+            durationMinutes: duration_minutes,
+            description
+        })
+    }
+
     checkErrors() {
         const MAX_DURATION = 12 * 60 + 59;
         const durationRecipe = this.durationHours * 60 + this.durationMinutes;

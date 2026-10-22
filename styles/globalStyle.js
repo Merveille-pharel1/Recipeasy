@@ -18,6 +18,11 @@ const globalStyles = StyleSheet.create({
         flexDirection: "row"
     },
 
+    text: {
+        color: "lightgray",
+        fontSize: 16
+    }
+
 });
 
 export default globalStyles;
