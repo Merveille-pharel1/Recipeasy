@@ -8,11 +8,11 @@ export default class UserCredentials{
     checkErrors(){
         let errors = ""
 
-        if(this.username == ""){
+        if(this.username.trim() == ""){
             errors += "Username requis!\n"
         }
 
-        if(this.password == ""){
+        if(this.password.trim() == ""){
             errors += "Password requis!\n"
         }
 

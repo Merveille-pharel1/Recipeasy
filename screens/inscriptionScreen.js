@@ -17,11 +17,11 @@ export default function InscriptionScreen({navigation}){
 
     let errors = ""
 
-    if(username == ""){
+    if(username.trim() == ""){
       errors += "Username requis!\n"
     }
 
-    if(password == ""){
+    if(password.trim() == ""){
       errors += "Password requis!\n"
     }
     else if (password !== confirmPassword ){
