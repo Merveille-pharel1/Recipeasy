@@ -33,7 +33,7 @@ export default function ListScreen({navigation, route}){
             if(cancelled) return
 
             if(success){
-                setRecipes(recipeService.recipes)
+                setRecipes(sortRecipes(recipeService.recipes))
             }
             else{
                 console.log("Impossible de charger une Liste de recette")
@@ -48,24 +48,24 @@ export default function ListScreen({navigation, route}){
 
     useFocusEffect(loadRecipes)
 
-    useEffect(() =>{
-        const addingRecipe = route.params?.recipe
-        if(addingRecipe != undefined){
+    // useEffect(() =>{
+    //     const addingRecipe = route.params?.recipe
+    //     if(addingRecipe != undefined){
 
-            const foundRecipe = recipes.find((recipe) => recipe.id == addingRecipe.id)
+    //         const foundRecipe = recipes.find((recipe) => recipe.id == addingRecipe.id)
 
-            let newRecipesList
-            if(foundRecipe){
-                newRecipesList = sortRecipes(recipes.map(recipe => recipe.id == addingRecipe.id ? addingRecipe : recipe))
-            }
-            else
-                newRecipesList = sortRecipes([...recipes, addingRecipe])
+    //         let newRecipesList
+    //         if(foundRecipe){
+    //             newRecipesList = sortRecipes(recipes.map(recipe => recipe.id == addingRecipe.id ? addingRecipe : recipe))
+    //         }
+    //         else
+    //             newRecipesList = sortRecipes([...recipes, addingRecipe])
 
-            Toast.info("Recette ajouté avec success");
+    //         Toast.info("Recette ajouté avec success");
 
-            setRecipes(newRecipesList);
-        }
-    }, [route.params?.recipe]);
+    //         setRecipes(newRecipesList);
+    //     }
+    // }, [route.params?.recipe]);
 
     return(
         <View style={globalStyles.container}>

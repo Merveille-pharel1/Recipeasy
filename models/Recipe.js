@@ -16,7 +16,7 @@ export default class Recipe{
     get id(){
         return this.#id
     }
-
+    
     toJSON() {
         return {
             id: this.#id,

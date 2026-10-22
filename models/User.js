@@ -11,7 +11,7 @@ export default class User{
         return this.#id
     }
 
-    toJson(){
+    toJSON(){
         return {
             id: this.#id,
             ...this

@@ -1,4 +1,4 @@
-import { View,TouchableHighlight, Text, StyleSheet } from 'react-native';
+import { View,TouchableHighlight, Text, StyleSheet, Alert } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 import InputField from '../components/inputField';
 import MyButton from '../components/myButton';
@@ -7,6 +7,7 @@ import globalStyles from '../styles/globalStyle';
 import { useEffect, useState } from 'react';
 import {Toast} from 'toastify-react-native';
 import Recipe from '../models/Recipe';
+import recipeService from '../services/RecipeService';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function FormScreen({navigation, route}){
@@ -23,6 +24,52 @@ export default function FormScreen({navigation, route}){
     }
   }, [route.params])
 
+  function showRequestResponse(success, operation){
+    if(success){
+      Toast.info("Success de " + operation + "!")
+      navigation.popTo("Recipes");
+    }
+    else{
+      Toast.error("Echec de " + operation +  "!")
+    }
+  }
+
+  async function handleSave(){
+    const errors = recipe.checkErrors();
+
+    if(errors != "")
+      Toast.error(errors)
+
+    else{
+  
+      if(mode == "ADD"){
+        const success = await recipeService.insertRecipe(recipe)
+        showRequestResponse(success, "l'ajout")
+      }
+
+      else{
+        const success = await recipeService.updateRecipe(recipe)
+        showRequestResponse(success, "la modification")
+      }
+    }
+  }
+
+  async function handleDelete(){
+    const success = await recipeService.deleteRecipe(recipe)
+    showRequestResponse(success, "la suppression")
+  }
+
+  function confirmDeletion() {
+    Alert.alert(
+      "Supprimer la recette",
+      "Cette action est irréversible.",
+      [
+        { text: "Annuler", style: "cancel" },
+        { text: "Oui", style: "destructive", onPress: handleDelete },
+      ]
+    )
+  }
+
   return (
     <View style={globalStyles.container}>
       <View style={{flex: 1, alignItems: "center", paddingTop: 5}}>
@@ -32,7 +79,7 @@ export default function FormScreen({navigation, route}){
           layout="row" 
           containerStyle={styles.radio} 
           labelStyle={{color: "white"}}
-          onPress={(category) => setRecipe(new Recipe({...recipe, category}))}
+          onPress={(category) => setRecipe(new Recipe({...recipe.toJSON(), category}))}
         />
         
         <InputField label="Name" value={recipe.name} onChangeText={(name) => setRecipe(new Recipe({...recipe.toJSON(), name})) }/>
@@ -52,27 +99,13 @@ export default function FormScreen({navigation, route}){
         
         <View style={[globalStyles.rowDefinition, {gap: 20}]}>
           { mode == "DELETE" && <TouchableHighlight
-            onPress = {() => {
-              navigation.popTo("Recipes");
-            }}
+            onPress = {confirmDeletion}
           >
             <MyButton width="60" label="Delete" style={{backgroundColor: "red"}}/>
           </TouchableHighlight>}
 
           <TouchableHighlight
-            onPress = {() => {
-              const errors = recipe.checkErrors();
-              if(errors != "")
-                Toast.error(errors)
-              else{
-                let newRecipe = recipe
-
-                if(mode == "ADD"){
-                  newRecipe = new Recipe({...recipe, id: uuidv4()});
-                }
-                navigation.popTo("Recipes", {recipe: newRecipe});
-              }
-            }}
+            onPress = {handleSave}
           >
             <MyButton width="60" label="Save"/>
           </TouchableHighlight>

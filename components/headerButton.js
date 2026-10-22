@@ -21,13 +21,13 @@ function HeaderButton({ label, icon, onPress }) {
 
 export function SignOutButton() {
     const navigation = useNavigation();
-    return <HeaderButton label="Sign out" onPress={() => navigation.popToTop()} />;
+    return <HeaderButton label="Sign out" onPress={() => {auth.logOut(); navigation.popToTop()}} />;
 }
 
 export function BackButton() {
     const navigation = useNavigation();
     const icon = <Ionicons name="arrow-back" size={24} color="white" />
-    return <HeaderButton icon={icon} onPress={() => {auth.logOut(); navigation.goBack()}} />;
+    return <HeaderButton icon={icon} onPress={() => navigation.goBack()} />;
 }
 
 const styles = StyleSheet.create({

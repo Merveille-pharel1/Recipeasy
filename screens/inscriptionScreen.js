@@ -44,7 +44,6 @@ export default function InscriptionScreen({navigation}){
       const credentials = new UserCredentials({username, password})
     
       const success = await auth.singUp(credentials)
-      console.log(success)
       
       if(success){
         setUsername("")
@@ -52,6 +51,9 @@ export default function InscriptionScreen({navigation}){
         setConfirmPassword("")
 
         navigation.replace("Recipes")
+      }
+      else{
+        Toast.error("Username déjà utilisé")
       }  
     }
   }

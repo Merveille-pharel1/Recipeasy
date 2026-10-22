@@ -12,10 +12,10 @@ export class RecipeService{
 
     async loadRecipes(){
         let currentUser = auth.currentUser
-        console.log(currentUser)
+        console.log("Load recipes: ", currentUser)
 
         if(currentUser != null){
-            const request = Request.createPostRequest("/select-recipes/execute", currentUser.toJson())
+            const request = Request.createPostRequest("/select-recipes/execute", currentUser.toJSON())
 
             const response = await fetch(request.url, request.options).then((r) => r.json())
 
@@ -33,7 +33,7 @@ export class RecipeService{
     async insertRecipe(recipe){
         let currentUser = auth.currentUser
         let success = false
-        console.log(currentUser)
+        console.log("Insert recipe: ", currentUser)
 
         if(currentUser != null){
             const request = Request.createPostRequest("/insert-recipe/execute", {user_id: currentUser.id, ...recipe})
@@ -45,7 +45,7 @@ export class RecipeService{
                 console.log("Recette ajoutée avec succès")
             }
             else{
-                console.log("Erreur lors de l'ajout de la recette")
+                console.log("Erreur lors de l'ajout de la recette", response)
             }
 
         }else{
@@ -58,7 +58,7 @@ export class RecipeService{
     async deleteRecipe(recipe){
         let currentUser = auth.currentUser
         let success = false
-        console.log(currentUser)
+        console.log("Delete recipe: ", currentUser)
 
         if(currentUser != null){
             const request = Request.createPostRequest("/delete-recipe/execute", {user_id: currentUser.id, id: recipe.id})
@@ -70,7 +70,7 @@ export class RecipeService{
                 console.log("Recette supprimée avec succès")
             }
             else{
-                console.log("Erreur lors de la suppression de la recette")
+                console.log("Erreur lors de la suppression de la recette", response)
             }
 
         }else{
@@ -83,10 +83,10 @@ export class RecipeService{
     async updateRecipe(recipe){
         let currentUser = auth.currentUser
         let success = false
-        console.log(currentUser)
+        console.log("Update recipe: ", currentUser)
 
         if(currentUser != null){
-            const request = Request.createPostRequest("/update-recipe/execute", {user_id: currentUser.id, ...recipe.toJson()})
+            const request = Request.createPostRequest("/update-recipe/execute", {user_id: currentUser.id, ...recipe.toJSON()})
 
             const response = await fetch(request.url, request.options).then((r) => r.json())
             success = response.success
@@ -95,7 +95,7 @@ export class RecipeService{
                 console.log("Recette mise à jour avec succès")
             }
             else{
-                console.log("Erreur lors de la mise à jour de la recette")
+                console.log("Erreur lors de la mise à jour de la recette: ", response)
             }
 
         }else{
@@ -104,7 +104,6 @@ export class RecipeService{
 
         return success
     }
-
     
 }
 
