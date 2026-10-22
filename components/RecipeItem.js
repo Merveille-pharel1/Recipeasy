@@ -5,7 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 
 const formatDuration = (hours, minutes) => `${hours}h${String(minutes).padStart(2, "0")}`;
 
-
 export default function RecipeItem({recipe}){
 
     const categories = [

@@ -4,7 +4,7 @@ import MyButton from "../components/myButton";
 import globalStyles from '../styles/globalStyle';
 import { useState } from "react";
 import UserCredentials from "../models/UserCredentials";
-import ToastManager, {Toast} from 'toastify-react-native';
+import {Toast} from 'toastify-react-native';
 import auth from "../services/AuthService";
 
 
@@ -52,7 +52,6 @@ export default function LoginScreen({navigation}){
         </TouchableHighlight>
       </View>
 
-      {/* <ToastManager/> */}
     </View>
   );
 }

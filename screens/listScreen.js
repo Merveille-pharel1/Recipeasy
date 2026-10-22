@@ -4,7 +4,6 @@ import globalStyles from "../styles/globalStyle"
 import MyButton from "../components/myButton";
 import RecipeItem from "../components/RecipeItem";
 import { useCallback, useEffect, useState } from "react";
-import {Toast} from 'toastify-react-native';
 import recipeService from "../services/RecipeService";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -47,25 +46,6 @@ export default function ListScreen({navigation, route}){
     }, [navigation])
 
     useFocusEffect(loadRecipes)
-
-    // useEffect(() =>{
-    //     const addingRecipe = route.params?.recipe
-    //     if(addingRecipe != undefined){
-
-    //         const foundRecipe = recipes.find((recipe) => recipe.id == addingRecipe.id)
-
-    //         let newRecipesList
-    //         if(foundRecipe){
-    //             newRecipesList = sortRecipes(recipes.map(recipe => recipe.id == addingRecipe.id ? addingRecipe : recipe))
-    //         }
-    //         else
-    //             newRecipesList = sortRecipes([...recipes, addingRecipe])
-
-    //         Toast.info("Recette ajouté avec success");
-
-    //         setRecipes(newRecipesList);
-    //     }
-    // }, [route.params?.recipe]);
 
     return(
         <View style={globalStyles.container}>

@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 export default class Recipe{
 
     #id
@@ -43,68 +41,3 @@ export default class Recipe{
     }
 
 }
-
-export const EMPTY_RECIPE = {
-    id: "",
-    category: null, 
-    name: "", 
-    duration_hours: 0, 
-    duration_minutes: 0, 
-    description: ""
-}
-
-export const SEED_RECIPE = [
-    new Recipe({
-        id: uuidv4(),
-        category: 1,
-        name: "Soupe",
-        duration_hours: 1,
-        duration_minutes: 5,
-        description: "Soupe aux lentilles",
-    }),
-
-    new Recipe({
-        id: uuidv4(),
-        category: 0,
-        name: "Crêpes au sirop d'érable",
-        duration_hours: 0,
-        duration_minutes: 25,
-        description: "Crêpesservies avec du sirop d'érable.",
-    }),
-
-    new Recipe({
-        id: uuidv4(),
-        category: 0,
-        name: "Omelette aux légumes",
-        duration_hours: 0,
-        duration_minutes: 15,
-        description: "Aux poivrons, oignons",
-    }),
-
-    new Recipe({
-        id: uuidv4(),
-        category: 1,
-        name: "Salade César",
-        duration_hours: 0,
-        duration_minutes: 30,
-        description: "Laitue romaine, croûtons et parmesan.",
-    }),
-    
-    new Recipe({
-        id: uuidv4(),
-        category: 2,
-        name: "Pâté chinois",
-        duration_hours: 1,
-        duration_minutes: 15,
-        description: "Bœuf haché et purée de pommes de terre.",
-    }),
-
-    new Recipe({
-        id: uuidv4(),
-        category: 2,
-        name: "Saumon au four",
-        duration_hours: 0,
-        duration_minutes: 40,
-        description: "Filet de saumon au citron",
-    }),
-]

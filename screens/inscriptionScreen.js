@@ -7,7 +7,6 @@ import {Toast} from 'toastify-react-native';
 import UserCredentials from "../models/UserCredentials";
 import auth from "../services/AuthService";
 
-
 export default function InscriptionScreen({navigation}){
 
   const [username, setUsername] = useState("")
@@ -19,7 +18,7 @@ export default function InscriptionScreen({navigation}){
     let errors = ""
 
     if(username == ""){
-        errors += "Username requis!\n"
+      errors += "Username requis!\n"
     }
 
     if(password == ""){
