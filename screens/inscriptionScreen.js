@@ -18,14 +18,14 @@ export default function InscriptionScreen({navigation}){
     let errors = ""
 
     if(username.trim() == ""){
-      errors += "Username requis!\n"
+        errors += "Username requis!\n"
     }
 
     if(password.trim() == ""){
-      errors += "Password requis!\n"
+        errors += "Password requis!\n"
     }
     else if (password !== confirmPassword ){
-      errors += "les passwords doivent être identiques"
+        errors += "les passwords doivent être identiques"
     }
 
     return errors
@@ -36,41 +36,46 @@ export default function InscriptionScreen({navigation}){
     const errors = checkErrors() 
     
     if(errors != ""){
-      Toast.error(errors)
-      return
+        Toast.error(errors)
+        return
     }
     else{
-      const credentials = new UserCredentials({username, password})
-    
-      const success = await auth.singUp(credentials)
+        const credentials = new UserCredentials({username, password})
+        
+        try{
+            const success = await auth.singUp(credentials)
       
-      if(success){
-        setUsername("")
-        setPassword("")
-        setConfirmPassword("")
+            if(success){
+                setUsername("")
+                setPassword("")
+                setConfirmPassword("")
 
-        navigation.replace("Recipes")
-      }
-      else{
-        Toast.error("Username déjà utilisé")
-      }  
+                navigation.replace("Recipes")
+            }
+            else{
+                Toast.error("Username déjà utilisé")
+            }  
+        }
+        catch{
+            Toast.error("Une Erreur est survenue.")
+        }
     }
-  }
+}
 
   return(
     <View style={globalStyles.container}>
-      <View style={globalStyles.form}>
-        <InputField label="Username" value={username} onChangeText={(username) => setUsername(username)}/>
-        <InputField label="Password" value={password} onChangeText={(password) => setPassword(password)}/>
-        <InputField label="Password confirmation" value={confirmPassword} onChangeText={(value) => setConfirmPassword(value)}/>
+        <View style={globalStyles.form}>
+            <InputField label="Username" value={username} onChangeText={(username) => setUsername(username)}/>
+            <InputField label="Password" value={password} onChangeText={(password) => setPassword(password)}/>
+            <InputField label="Password confirmation" value={confirmPassword} onChangeText={(value) => setConfirmPassword(value)}/>
 
 
-        <TouchableHighlight
-          onPress={handleSignUp}
-        >
-          <MyButton label="Create my account"/>
-        </TouchableHighlight>
-      </View>
+            <TouchableHighlight
+            onPress={handleSignUp}
+            >
+            <MyButton label="Create my account"/>
+            </TouchableHighlight>
+        </View>
 
     </View>
   );

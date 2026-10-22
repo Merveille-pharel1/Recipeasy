@@ -28,16 +28,23 @@ export default function ListScreen({navigation, route}){
         let cancelled = false;
 
         async function load() {
-            const success = await recipeService.loadRecipes()
-            if(cancelled) return
 
-            if(success){
-                setRecipes(sortRecipes(recipeService.recipes))
+            try{
+                const success = await recipeService.loadRecipes()
+                if(cancelled) return
+
+                if(success){
+                    setRecipes(sortRecipes(recipeService.recipes))
+                }
+                else{
+                    console.log("Impossible de charger une Liste de recette")
+                    navigation.popToTop()
+                }
             }
-            else{
-                console.log("Impossible de charger une Liste de recette")
-                navigation.popToTop()
+            catch{
+                Toast.error("Une Erreur est survenue.")
             }
+            
         }
 
         load()

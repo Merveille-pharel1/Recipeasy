@@ -42,21 +42,33 @@ export default function FormScreen({navigation, route}){
 
     else{
   
-      if(mode == "ADD"){
-        const success = await recipeService.insertRecipe(recipe)
-        showRequestResponse(success, "l'ajout")
-      }
+      try{
+        if(mode == "ADD"){
+          const success = await recipeService.insertRecipe(recipe)
+          showRequestResponse(success, "l'ajout")
+        }
 
-      else{
-        const success = await recipeService.updateRecipe(recipe)
-        showRequestResponse(success, "la modification")
+        else{
+          const success = await recipeService.updateRecipe(recipe)
+          showRequestResponse(success, "la modification")
+        }  
       }
+      catch{
+        Toast.error("Une Erreur est survenue.")
+      }
+      
     }
   }
 
   async function handleDelete(){
-    const success = await recipeService.deleteRecipe(recipe)
-    showRequestResponse(success, "la suppression")
+    try{
+      const success = await recipeService.deleteRecipe(recipe)
+      showRequestResponse(success, "la suppression")
+    }
+    catch{
+      Toast.error("Une Erreur est survenue.")
+    }
+    
   }
 
   function confirmDeletion() {
