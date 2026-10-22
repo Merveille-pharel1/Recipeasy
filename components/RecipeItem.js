@@ -24,7 +24,7 @@ export default function RecipeItem({recipe}){
             <View style={[globalStyles.rowDefinition, {marginVertical: 15, gap: 4}]}>
                 <View style={{width: 50}}>
                     <MaterialIcons name={categories[recipe.category - 1].name} size={24} color={categories[recipe.category - 1].color} />
-                    <Text style={styles.text}>{formatDuration(recipe.durationHours, recipe.durationMinutes)}</Text>
+                    <Text style={styles.text}>{formatDuration(recipe.duration_hours, recipe.duration_minutes)}</Text>
                 </View>
                 <View style={{flex: 1, justifyContent: "flex-start"}}>
                     <Text numberOfLines={1} style={styles.textName}>{recipe.name}</Text>

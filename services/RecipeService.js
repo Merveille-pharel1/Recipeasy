@@ -11,17 +11,16 @@ export class RecipeService{
     }
 
     async loadRecipes(){
-        const currentUser = auth.currentUser
+        let currentUser = auth.currentUser
         console.log(currentUser)
 
         if(currentUser != null){
             const request = Request.createPostRequest("/select-recipes/execute", currentUser.toJson())
 
             const response = await fetch(request.url, request.options).then((r) => r.json())
-            console.log(response.data)
 
             if(response.success){
-                this.#recipes = response.data.map(({user_id, ...r}) => Recipe.Map(r)); // user_id peut également être trié par le constructeur
+                this.#recipes = response.data.map(({user_id, ...r}) => new Recipe(r));
                 console.log(this.#recipes)
             }
         }else{
@@ -30,6 +29,83 @@ export class RecipeService{
 
         return !!this.#recipes
     }
+
+    async insertRecipe(recipe){
+        let currentUser = auth.currentUser
+        let success = false
+        console.log(currentUser)
+
+        if(currentUser != null){
+            const request = Request.createPostRequest("/insert-recipe/execute", {user_id: currentUser.id, ...recipe})
+
+            const response = await fetch(request.url, request.options).then((r) => r.json())
+            success = response.success
+
+            if(response.success){
+                console.log("Recette ajoutée avec succès")
+            }
+            else{
+                console.log("Erreur lors de l'ajout de la recette")
+            }
+
+        }else{
+            console.log("Utilisateur non authentifié")
+        }
+
+        return success
+    }
+
+    async deleteRecipe(recipe){
+        let currentUser = auth.currentUser
+        let success = false
+        console.log(currentUser)
+
+        if(currentUser != null){
+            const request = Request.createPostRequest("/delete-recipe/execute", {user_id: currentUser.id, id: recipe.id})
+
+            const response = await fetch(request.url, request.options).then((r) => r.json())
+            success = response.success
+
+            if(response.success){
+                console.log("Recette supprimée avec succès")
+            }
+            else{
+                console.log("Erreur lors de la suppression de la recette")
+            }
+
+        }else{
+            console.log("Utilisateur non authentifié")
+        }
+
+        return success
+    }
+
+    async updateRecipe(recipe){
+        let currentUser = auth.currentUser
+        let success = false
+        console.log(currentUser)
+
+        if(currentUser != null){
+            const request = Request.createPostRequest("/update-recipe/execute", {user_id: currentUser.id, ...recipe.toJson()})
+
+            const response = await fetch(request.url, request.options).then((r) => r.json())
+            success = response.success
+
+            if(response.success){
+                console.log("Recette mise à jour avec succès")
+            }
+            else{
+                console.log("Erreur lors de la mise à jour de la recette")
+            }
+
+        }else{
+            console.log("Utilisateur non authentifié")
+        }
+
+        return success
+    }
+
+    
 }
 
 const recipeService = new RecipeService

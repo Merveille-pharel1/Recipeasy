@@ -40,11 +40,11 @@ export default function FormScreen({navigation, route}){
         <View style={[globalStyles.rowDefinition, styles.durationContainer]}>
           <View style={[globalStyles.rowDefinition, {gap: 10, flex: 1, alignItems: "center"}]}>
             <Text style={{color: 'white'}}>Duration</Text>
-            <TimeList max="12" unity="h" selectedValue={recipe.durationHours} onValueChange={(durationHours, hoursIndex) => setRecipe(new Recipe({...recipe.toJSON(), durationHours}))}/>
+            <TimeList max="12" unity="h" selectedValue={recipe.duration_hours} onValueChange={(duration_hours, hoursIndex) => setRecipe(new Recipe({...recipe.toJSON(), duration_hours}))}/>
           </View>
           <View style={[globalStyles.rowDefinition, {gap: 10, flex: 1,alignItems: "center"}]}>
             <Text style={{color: 'white'}}>:</Text>
-            <TimeList max="60" unity="mins" selectedValue={recipe.durationMinutes} onValueChange={(durationMinutes, minutesIndex) => setRecipe(new Recipe({...recipe.toJSON(), durationMinutes}))}/>
+            <TimeList max="60" unity="mins" selectedValue={recipe.duration_minutes} onValueChange={(duration_minutes, minutesIndex) => setRecipe(new Recipe({...recipe.toJSON(), duration_minutes}))}/>
           </View>
         </View>
 

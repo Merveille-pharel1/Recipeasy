@@ -4,12 +4,12 @@ export default class Recipe{
 
     #id
 
-    constructor({id = "", category = null, name = "", durationHours = 0 , durationMinutes = 0 , description = ""}){
+    constructor({id = "", category = null, name = "", duration_hours = 0 , duration_minutes = 0 , description = ""}){
         this.#id = id
         this.category = category
         this.name = name
-        this.durationHours = durationHours
-        this.durationMinutes = durationMinutes
+        this.duration_hours = duration_hours
+        this.duration_minutes = duration_minutes
         this.description = description
     }
 
@@ -24,20 +24,9 @@ export default class Recipe{
         }
     }
 
-    static Map({ id, category, name, duration_hours, duration_minutes, description }){
-        return new Recipe({
-            id,
-            category,
-            name,
-            durationHours: duration_hours,
-            durationMinutes: duration_minutes,
-            description
-        })
-    }
-
     checkErrors() {
         const MAX_DURATION = 12 * 60 + 59;
-        const durationRecipe = this.durationHours * 60 + this.durationMinutes;
+        const durationRecipe = this.duration_hours * 60 + this.duration_minutes;
 
         let errors = ""
 
@@ -59,8 +48,8 @@ export const EMPTY_RECIPE = {
     id: "",
     category: null, 
     name: "", 
-    durationHours: 0, 
-    durationMinutes: 0, 
+    duration_hours: 0, 
+    duration_minutes: 0, 
     description: ""
 }
 
@@ -69,8 +58,8 @@ export const SEED_RECIPE = [
         id: uuidv4(),
         category: 1,
         name: "Soupe",
-        durationHours: 1,
-        durationMinutes: 5,
+        duration_hours: 1,
+        duration_minutes: 5,
         description: "Soupe aux lentilles",
     }),
 
@@ -78,8 +67,8 @@ export const SEED_RECIPE = [
         id: uuidv4(),
         category: 0,
         name: "Crêpes au sirop d'érable",
-        durationHours: 0,
-        durationMinutes: 25,
+        duration_hours: 0,
+        duration_minutes: 25,
         description: "Crêpesservies avec du sirop d'érable.",
     }),
 
@@ -87,8 +76,8 @@ export const SEED_RECIPE = [
         id: uuidv4(),
         category: 0,
         name: "Omelette aux légumes",
-        durationHours: 0,
-        durationMinutes: 15,
+        duration_hours: 0,
+        duration_minutes: 15,
         description: "Aux poivrons, oignons",
     }),
 
@@ -96,8 +85,8 @@ export const SEED_RECIPE = [
         id: uuidv4(),
         category: 1,
         name: "Salade César",
-        durationHours: 0,
-        durationMinutes: 30,
+        duration_hours: 0,
+        duration_minutes: 30,
         description: "Laitue romaine, croûtons et parmesan.",
     }),
     
@@ -105,8 +94,8 @@ export const SEED_RECIPE = [
         id: uuidv4(),
         category: 2,
         name: "Pâté chinois",
-        durationHours: 1,
-        durationMinutes: 15,
+        duration_hours: 1,
+        duration_minutes: 15,
         description: "Bœuf haché et purée de pommes de terre.",
     }),
 
@@ -114,8 +103,8 @@ export const SEED_RECIPE = [
         id: uuidv4(),
         category: 2,
         name: "Saumon au four",
-        durationHours: 0,
-        durationMinutes: 40,
+        duration_hours: 0,
+        duration_minutes: 40,
         description: "Filet de saumon au citron",
     }),
 ]
